@@ -150,18 +150,18 @@ To add a new user:
 ### Building with Docker or Podman (Docker Hub)
 
 ```bash
-# Build container image tagged for Docker Hub (gregcoward/myarcadia)
-docker build -t gregcoward/myarcadia:latest .
+# Build container image tagged for Docker Hub (gregorycoward/myarcadia)
+docker build -t gregorycoward/myarcadia:latest .
 
 # Test run locally on port 8080
-docker run -d -p 8080:8080 --name gregs-finance-app gregcoward/myarcadia:latest
+docker run -d -p 8080:8080 --name gregs-finance-app gregorycoward/myarcadia:latest
 
 # Verify local health endpoint
 curl http://localhost:8080/healthz
 
 # Log in to Docker Hub and push the image
-docker login -u gregcoward
-docker push gregcoward/myarcadia:latest
+docker login -u gregorycoward
+docker push gregorycoward/myarcadia:latest
 ```
 
 ---
