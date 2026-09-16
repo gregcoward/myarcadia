@@ -50,7 +50,7 @@ if [ "${METHOD}" == "openshift-build" ]; then
     fi
 
 elif [ "${METHOD}" == "external" ]; then
-    REGISTRY=${3:-"docker.io/gregorycoward/myarcadia:latest"}
+    REGISTRY=${3:-"docker.io/gregcoward/myarcadia:latest"}
     echo -e "\n${BLUE}Building container image locally: ${REGISTRY}...${NC}"
     docker build -t "${REGISTRY}" . || podman build -t "${REGISTRY}" .
 
