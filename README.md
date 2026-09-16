@@ -150,8 +150,8 @@ To add a new user:
 ### Building with Docker or Podman (Docker Hub)
 
 ```bash
-# Build container image tagged for Docker Hub (gregcoward/myarcadia)
-docker build -t gregcoward/myarcadia:latest .
+# Build container image tagged for Docker Hub (linux/amd64 architecture)
+docker build --platform linux/amd64 -t gregcoward/myarcadia:latest .
 
 # Test run locally on port 8080
 docker run -d -p 8080:8080 --name gregs-finance-app gregcoward/myarcadia:latest

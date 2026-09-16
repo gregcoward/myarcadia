@@ -34,13 +34,13 @@ else
 fi
 
 if [ "${METHOD}" == "external" ] || [ "${METHOD}" == "docker" ]; then
-    echo -e "\n${BLUE}1. Building container image locally: ${REGISTRY}...${NC}"
+    echo -e "\n${BLUE}1. Building container image for linux/amd64: ${REGISTRY}...${NC}"
     if command -v docker &> /dev/null; then
-        docker build -t "${REGISTRY}" .
+        docker build --platform linux/amd64 -t "${REGISTRY}" .
         echo -e "${BLUE}2. Pushing container image to Docker Hub...${NC}"
         docker push "${REGISTRY}"
     elif command -v podman &> /dev/null; then
-        podman build -t "${REGISTRY}" .
+        podman build --platform linux/amd64 -t "${REGISTRY}" .
         echo -e "${BLUE}2. Pushing container image to Docker Hub...${NC}"
         podman push "${REGISTRY}"
     else
@@ -64,11 +64,11 @@ elif [ "${METHOD}" == "openshift-build" ]; then
     if ! oc start-build arcadia-web --from-dir=. --follow; then
         echo -e "\n${YELLOW}========================================================================${NC}"
         echo -e "${YELLOW}Notice: OpenShift in-cluster build failed (likely because internal image registry is disabled on this cluster).${NC}"
-        echo -e "${YELLOW}Switching automatically to Docker Hub build & deploy method (${REGISTRY})...${NC}"
+        echo -e "${YELLOW}Switching automatically to Docker Hub build for linux/amd64 (${REGISTRY})...${NC}"
         echo -e "${YELLOW}========================================================================${NC}\n"
 
-        echo -e "${BLUE}Building container image locally: ${REGISTRY}...${NC}"
-        docker build -t "${REGISTRY}" . || podman build -t "${REGISTRY}" .
+        echo -e "${BLUE}Building container image for linux/amd64: ${REGISTRY}...${NC}"
+        docker build --platform linux/amd64 -t "${REGISTRY}" . || podman build --platform linux/amd64 -t "${REGISTRY}" .
 
         echo -e "${BLUE}Pushing container image to Docker Hub...${NC}"
         docker push "${REGISTRY}" || podman push "${REGISTRY}"
