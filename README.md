@@ -180,15 +180,27 @@ oc start-build arcadia-web --from-dir=. --follow
 
 ## Deploying to OpenShift & Kubernetes
 
-### OpenShift Deployment (Automated & Manual)
+### OpenShift Deployment Options
+
+#### Option A: External Docker Hub Build (Recommended)
+If your OpenShift cluster does not have an internal image registry enabled (or raises `InvalidOutputReference` during `oc start-build`), use the `external` deployment mode:
 
 ```bash
-# 1. Log in to OpenShift cluster
-oc login https://api.your-cluster.com:6443 --token=YOUR_OCP_TOKEN
+# 1. Log in to your OpenShift cluster
+oc login https://api.ai-guardrails.bd.f5.com:6443
 
-# 2. Execute deployment helper script
+# 2. Build local container, push to Docker Hub, and deploy to OpenShift
+./deploy.sh gregs-finance external
+```
+
+#### Option B: In-Cluster OpenShift Build
+If internal ImageStreams are configured on your OpenShift cluster:
+
+```bash
 ./deploy.sh gregs-finance openshift-build
 ```
+
+> **Note on `InvalidOutputReference` Error**: If `oc start-build` fails with `build failed: InvalidOutputReference: Output image could not be resolved`, the cluster does not have an internal image registry service running. The updated `./deploy.sh` script automatically detects this error and falls back to building via `docker` / `podman` and pushing to `docker.io/gregcoward/myarcadia:latest`.
 
 ---
 
