@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: arcadia-web
+  labels:
+    app.kubernetes.io/name: arcadia-web
+    app.kubernetes.io/part-of: arcadia-finance
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: arcadia-web

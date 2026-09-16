@@ -1,0 +1,26 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: arcadia-web
+  labels:
+    app.kubernetes.io/name: arcadia-web
+    app.kubernetes.io/part-of: arcadia-finance
+---
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: arcadia-web
+  labels:
+    app.kubernetes.io/name: arcadia-web
+    app.kubernetes.io/part-of: arcadia-finance
+spec:
+  source:
+    type: Binary
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'arcadia-web:latest'

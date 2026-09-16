@@ -1,0 +1,18 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: arcadia-web
+  labels:
+    app.kubernetes.io/name: arcadia-web
+    app.kubernetes.io/part-of: arcadia-finance
+spec:
+  to:
+    kind: Service
+    name: arcadia-web
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

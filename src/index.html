@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greg's Finance Company Portal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="brand">
+                <div class="logo">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+                <span class="brand-name">Greg's <span class="brand-highlight">Finance</span></span>
+            </div>
+
+            <nav class="nav-links">
+                <button class="nav-btn active" data-tab="dashboard">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Dashboard
+                </button>
+                <button class="nav-btn" data-tab="transfer">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    Money Transfer
+                </button>
+                <button class="nav-btn" data-tab="referral">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                    Refer a Friend
+                </button>
+                <button class="nav-btn" data-tab="system">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                    Microservices Status
+                </button>
+            </nav>
+
+            <div class="user-profile">
+                <div class="avatar">JD</div>
+                <div class="user-info">
+                    <span class="user-name">Jane Doe</span>
+                    <span class="user-status">Premium Tier</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Dashboard Tab -->
+        <section id="dashboard" class="tab-content active">
+            <div class="page-header">
+                <h2>Account Overview</h2>
+                <span class="badge badge-success">Live OpenShift Environment</span>
+            </div>
+
+            <!-- Balance Cards Grid -->
+            <div class="cards-grid">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <span>Total Portfolio Balance</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                    </div>
+                    <div class="card-value">$128,450.80</div>
+                    <div class="card-footer positive">+4.2% from last month</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>Checking Account</span>
+                        <span class="account-num">•••• 4829</span>
+                    </div>
+                    <div class="card-value">$24,150.25</div>
+                    <div class="card-footer text-muted">Greg's Main Service</div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>Savings Account</span>
+                        <span class="account-num">•••• 9102</span>
+                    </div>
+                    <div class="card-value">$104,300.55</div>
+                    <div class="card-footer text-muted">Greg's Backend Service</div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="section-card">
+                <div class="section-header">
+                    <h3>Recent Transactions</h3>
+                    <button class="btn btn-outline" id="refresh-txs">Refresh</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Description</th>
+                                <th>Category</th>
+                                <th>Service Endpoint</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-body">
+                            <tr>
+                                <td>2026-09-16</td>
+                                <td>Internal Wire Transfer</td>
+                                <td>Transfer</td>
+                                <td><code>/api/transfer</code></td>
+                                <td class="amount negative">-$1,200.00</td>
+                                <td><span class="status-pill status-completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>2026-09-15</td>
+                                <td>Referral Reward - Alex S.</td>
+                                <td>Bonus</td>
+                                <td><code>/app3/referral</code></td>
+                                <td class="amount positive">+$50.00</td>
+                                <td><span class="status-pill status-completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>2026-09-14</td>
+                                <td>Payroll Direct Deposit</td>
+                                <td>Income</td>
+                                <td><code>/files/payroll</code></td>
+                                <td class="amount positive">+$4,500.00</td>
+                                <td><span class="status-pill status-completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>2026-09-12</td>
+                                <td>Investment Yield</td>
+                                <td>Dividend</td>
+                                <td><code>/api/investments</code></td>
+                                <td class="amount positive">+$340.20</td>
+                                <td><span class="status-pill status-completed">Completed</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Money Transfer Tab -->
+        <section id="transfer" class="tab-content">
+            <div class="page-header">
+                <h2>Money Transfer Service</h2>
+                <span class="endpoint-tag">Endpoint: <code>/api/v1/transfer</code></span>
+            </div>
+
+            <div class="form-grid">
+                <div class="section-card form-card">
+                    <h3>Execute Wire / Internal Transfer</h3>
+                    <form id="transfer-form">
+                        <div class="form-group">
+                            <label for="source-account">Source Account</label>
+                            <select id="source-account" class="form-input" required>
+                                <option value="checking">Checking Account (•••• 4829) - $24,150.25</option>
+                                <option value="savings">Savings Account (•••• 9102) - $104,300.55</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name">Recipient Name / Account ID</label>
+                            <input type="text" id="recipient-name" class="form-input" placeholder="e.g. John Smith or ACC-98124" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="transfer-amount">Amount ($)</label>
+                            <input type="number" id="transfer-amount" class="form-input" min="1" step="0.01" placeholder="0.00" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="transfer-note">Reference / Note</label>
+                            <input type="text" id="transfer-note" class="form-input" placeholder="Optional transfer memo">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Send Transfer</button>
+                    </form>
+                    <div id="transfer-alert" class="alert hidden"></div>
+                </div>
+
+                <div class="section-card info-card">
+                    <h3>API Security & Microservice Routing</h3>
+                    <p>In Greg's Finance Company architecture, money transfers are processed by the isolated <code>/api</code> microservice module.</p>
+                    <ul class="feature-list">
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Encrypted REST payload payload inspection
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            OpenShift non-root container isolation
+                        </li>
+                        <li>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            Integrated with Flowise AI Guardrails
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Referral Tab -->
+        <section id="referral" class="tab-content">
+            <div class="page-header">
+                <h2>Refer-a-Friend Program</h2>
+                <span class="endpoint-tag">Endpoint: <code>/app3/referral</code></span>
+            </div>
+
+            <div class="form-grid">
+                <div class="section-card form-card">
+                    <h3>Invite Friends & Earn Rewards</h3>
+                    <p class="text-muted">Earn $50 for every friend who opens a Greg's Finance Company account.</p>
+
+                    <div class="form-group">
+                        <label for="referral-link">Your Personal Referral Link</label>
+                        <div class="input-group">
+                            <input type="text" id="referral-link" class="form-input" value="https://gregs-finance.apps.openshift.com/invite/JD-8902" readonly>
+                            <button class="btn btn-outline" id="copy-link-btn">Copy</button>
+                        </div>
+                    </div>
+
+                    <form id="referral-email-form">
+                        <div class="form-group">
+                            <label for="friend-email">Send Invitation Email</label>
+                            <input type="email" id="friend-email" class="form-input" placeholder="friend@example.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Invitation</button>
+                    </form>
+                    <div id="referral-alert" class="alert hidden"></div>
+                </div>
+
+                <div class="section-card">
+                    <h3>Referral Statistics</h3>
+                    <div class="stats-list">
+                        <div class="stat-item">
+                            <span class="stat-label">Invites Sent</span>
+                            <span class="stat-value">12</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Successful Signups</span>
+                            <span class="stat-value">4</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Earned</span>
+                            <span class="stat-value text-success">$200.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- System Microservices Status Tab -->
+        <section id="system" class="tab-content">
+            <div class="page-header">
+                <h2>Greg's Microservices Status</h2>
+                <span class="badge badge-success">All Systems Operational</span>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-header">
+                        <span class="service-name">Main Web Frontend</span>
+                        <span class="status-dot online"></span>
+                    </div>
+                    <p class="service-route">Path: <code>/</code></p>
+                    <p class="service-desc">Serves core static web application & Flowise chatbot UI integration.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <span class="service-name">Backend Service</span>
+                        <span class="status-dot online"></span>
+                    </div>
+                    <p class="service-route">Path: <code>/files</code></p>
+                    <p class="service-desc">Handles user database storage, profile state, and ledger entries.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <span class="service-name">Money Transfer API</span>
+                        <span class="status-dot online"></span>
+                    </div>
+                    <p class="service-route">Path: <code>/api</code></p>
+                    <p class="service-desc">Processes transactional wire transfers and account balances.</p>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-header">
+                        <span class="service-name">Referral Service</span>
+                        <span class="status-dot online"></span>
+                    </div>
+                    <p class="service-route">Path: <code>/app3</code></p>
+                    <p class="service-desc">Manages user invitation links and bonus allocations.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Greg's Finance Company Demo Application | Deployed on OpenShift</p>
+            <p class="footer-note">Flowise Chatbot embedded via AI Guardrails API Host</p>
+        </div>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="app.js"></script>
+
+    <!-- Flowise Chatbot Integration -->
+    <script type="module">
+        import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+        Chatbot.init({
+            chatflowid: "890c94ce-5c7a-4efa-9038-e5b530c212f3",
+            apiHost: "https://flowise-local-ai-lab.apps.ai-guardrails.bd.f5.com",
+        })
+    </script>
+</body>
+</html>
