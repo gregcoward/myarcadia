@@ -50,12 +50,12 @@ if [ "${METHOD}" == "openshift-build" ]; then
     fi
 
 elif [ "${METHOD}" == "external" ]; then
-    REGISTRY=${3:-"quay.io/your-user/arcadia-web:latest"}
+    REGISTRY=${3:-"docker.io/gregcoward/myarcadia:latest"}
     echo -e "\n${BLUE}Building container image locally: ${REGISTRY}...${NC}"
-    podman build -t "${REGISTRY}" . || docker build -t "${REGISTRY}" .
+    docker build -t "${REGISTRY}" . || podman build -t "${REGISTRY}" .
 
-    echo -e "${BLUE}Pushing container image: ${REGISTRY}...${NC}"
-    podman push "${REGISTRY}" || docker push "${REGISTRY}"
+    echo -e "${BLUE}Pushing container image to Docker Hub: ${REGISTRY}...${NC}"
+    docker push "${REGISTRY}" || podman push "${REGISTRY}"
 
     echo -e "\n${BLUE}Applying Kubernetes/OpenShift Manifests...${NC}"
     oc apply -f openshift/deployment.yaml

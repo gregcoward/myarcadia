@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: arcadia-web
-          image: arcadia-web:latest
+          image: docker.io/gregcoward/myarcadia:latest
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

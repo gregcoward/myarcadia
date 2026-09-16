@@ -147,20 +147,21 @@ To add a new user:
 
 ## Building Container Images
 
-### Building with Podman or Docker
+### Building with Docker or Podman (Docker Hub)
 
 ```bash
-# Build container image
-podman build -t quay.io/your-user/gregs-finance-web:v1.0 .
+# Build container image tagged for Docker Hub (gregcoward/myarcadia)
+docker build -t gregcoward/myarcadia:latest .
 
 # Test run locally on port 8080
-podman run -d -p 8080:8080 --name gregs-finance-app quay.io/your-user/gregs-finance-web:v1.0
+docker run -d -p 8080:8080 --name gregs-finance-app gregcoward/myarcadia:latest
 
 # Verify local health endpoint
 curl http://localhost:8080/healthz
 
-# Push image to remote registry
-podman push quay.io/your-user/gregs-finance-web:v1.0
+# Log in to Docker Hub and push the image
+docker login -u gregcoward
+docker push gregcoward/myarcadia:latest
 ```
 
 ---
