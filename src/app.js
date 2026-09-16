@@ -1,4 +1,127 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Demo User Database
+    const USERS_DB = {
+        'jane.doe@gregsfinance.com': {
+            email: 'jane.doe@gregsfinance.com',
+            password: 'password123',
+            name: 'Jane Doe',
+            avatar: 'JD',
+            status: 'Premium Tier',
+            checkingNum: '•••• 4829',
+            checkingBalance: 24150.25,
+            savingsNum: '•••• 9102',
+            savingsBalance: 104300.55,
+            referralCode: 'JD-8902'
+        },
+        'alex.smith@gregsfinance.com': {
+            email: 'alex.smith@gregsfinance.com',
+            password: 'admin123',
+            name: 'Alex Smith',
+            avatar: 'AS',
+            status: 'Standard Tier',
+            checkingNum: '•••• 1094',
+            checkingBalance: 5400.00,
+            savingsNum: '•••• 7712',
+            savingsBalance: 18250.00,
+            referralCode: 'AS-1094'
+        }
+    };
+
+    // Elements
+    const loginModal = document.getElementById('login-modal');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    const navAvatar = document.getElementById('nav-avatar');
+    const navUserName = document.getElementById('nav-user-name');
+    const navUserStatus = document.getElementById('nav-user-status');
+
+    const portfolioBalanceEl = document.getElementById('portfolio-balance');
+    const checkingBalanceEl = document.getElementById('checking-balance');
+    const checkingNumEl = document.getElementById('checking-account-num');
+    const savingsBalanceEl = document.getElementById('savings-balance');
+    const savingsNumEl = document.getElementById('savings-account-num');
+    const referralLinkInput = document.getElementById('referral-link');
+    const sourceAccountSelect = document.getElementById('source-account');
+
+    // Auth State Initialization
+    function checkAuth() {
+        const sessionUserEmail = sessionStorage.getItem('gregs_auth_user');
+        if (sessionUserEmail && USERS_DB[sessionUserEmail]) {
+            renderUserSession(USERS_DB[sessionUserEmail]);
+            loginModal.classList.add('hidden');
+        } else {
+            loginModal.classList.remove('hidden');
+        }
+    }
+
+    // Render User Session UI
+    function renderUserSession(user) {
+        if (navAvatar) navAvatar.textContent = user.avatar;
+        if (navUserName) navUserName.textContent = user.name;
+        if (navUserStatus) navUserStatus.textContent = user.status;
+
+        const totalPortfolio = user.checkingBalance + user.savingsBalance;
+        if (portfolioBalanceEl) portfolioBalanceEl.textContent = `$${totalPortfolio.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        if (checkingBalanceEl) checkingBalanceEl.textContent = `$${user.checkingBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        if (checkingNumEl) checkingNumEl.textContent = user.checkingNum;
+        if (savingsBalanceEl) savingsBalanceEl.textContent = `$${user.savingsBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        if (savingsNumEl) savingsNumEl.textContent = user.savingsNum;
+
+        if (referralLinkInput) {
+            referralLinkInput.value = `https://gregs-finance.apps.openshift.com/invite/${user.referralCode}`;
+        }
+
+        if (sourceAccountSelect) {
+            sourceAccountSelect.innerHTML = `
+                <option value="checking">Checking Account (${user.checkingNum}) - $${user.checkingBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</option>
+                <option value="savings">Savings Account (${user.savingsNum}) - $${user.savingsBalance.toLocaleString('en-US', { minimumFractionDigits: 2 })}</option>
+            `;
+        }
+    }
+
+    // Handle Login Submit
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim().toLowerCase();
+            const password = document.getElementById('login-password').value;
+
+            const matchedUser = USERS_DB[email];
+            if (matchedUser && matchedUser.password === password) {
+                sessionStorage.setItem('gregs_auth_user', matchedUser.email);
+                loginError.classList.add('hidden');
+                renderUserSession(matchedUser);
+                loginModal.classList.add('hidden');
+            } else {
+                loginError.classList.remove('hidden');
+            }
+        });
+    }
+
+    // Quick Login Chips Autofill
+    const chips = document.querySelectorAll('.chip');
+    chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+            const email = chip.getAttribute('data-email');
+            const pass = chip.getAttribute('data-pass');
+            document.getElementById('login-email').value = email;
+            document.getElementById('login-password').value = pass;
+        });
+    });
+
+    // Logout
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            sessionStorage.removeItem('gregs_auth_user');
+            loginModal.classList.remove('hidden');
+        });
+    }
+
+    // Check Auth on load
+    checkAuth();
+
     // Navigation Tab Switching
     const navButtons = document.querySelectorAll('.nav-btn');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -7,11 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', () => {
             const targetTab = button.getAttribute('data-tab');
 
-            // Deactivate all
             navButtons.forEach(btn => btn.classList.remove('active'));
             tabContents.forEach(tab => tab.classList.remove('active'));
 
-            // Activate target
             button.classList.add('active');
             const targetContent = document.getElementById(targetTab);
             if (targetContent) {
@@ -33,12 +154,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const amount = parseFloat(document.getElementById('transfer-amount').value).toFixed(2);
             const note = document.getElementById('transfer-note').value || 'Transfer';
 
-            // Show success alert
             transferAlert.className = 'alert success';
             transferAlert.textContent = `Success! Transferred $${amount} to ${recipient}. Processing via /api/v1/transfer.`;
             transferAlert.classList.remove('hidden');
 
-            // Prepend transaction row to table
             if (transactionsBody) {
                 const newRow = document.createElement('tr');
                 const today = new Date().toISOString().split('T')[0];
@@ -53,10 +172,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 transactionsBody.insertBefore(newRow, transactionsBody.firstChild);
             }
 
-            // Reset form
             transferForm.reset();
 
-            // Hide alert after 5 seconds
             setTimeout(() => {
                 transferAlert.classList.add('hidden');
             }, 5000);
@@ -86,12 +203,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Copy Referral Link
     const copyBtn = document.getElementById('copy-link-btn');
-    const referralInput = document.getElementById('referral-link');
 
-    if (copyBtn && referralInput) {
+    if (copyBtn && referralLinkInput) {
         copyBtn.addEventListener('click', () => {
-            referralInput.select();
-            navigator.clipboard.writeText(referralInput.value).then(() => {
+            referralLinkInput.select();
+            navigator.clipboard.writeText(referralLinkInput.value).then(() => {
                 copyBtn.textContent = 'Copied!';
                 setTimeout(() => {
                     copyBtn.textContent = 'Copy';

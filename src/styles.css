@@ -141,6 +141,10 @@ body {
     color: var(--accent-blue);
 }
 
+.logout-btn {
+    margin-left: 0.5rem;
+}
+
 /* Main Content */
 .main-content {
     max-width: 1200px;
@@ -383,7 +387,16 @@ body {
     font-weight: 600;
     cursor: pointer;
     border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     transition: all 0.2s;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
 }
 
 .btn-primary {
@@ -424,8 +437,14 @@ body {
     color: var(--accent-green);
 }
 
+.alert.error {
+    background-color: rgba(248, 113, 113, 0.15);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    color: var(--accent-red);
+}
+
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .feature-list {
@@ -534,6 +553,88 @@ body {
 .service-desc {
     font-size: 0.875rem;
     color: var(--text-secondary);
+}
+
+/* Login Modal Screen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.92);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 1.5rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.modal-header .logo {
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.quick-login-box {
+    margin-top: 1.75rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.quick-login-title {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.quick-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.chip {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.chip:hover {
+    border-color: var(--accent-blue);
+    color: var(--text-primary);
+    background-color: rgba(56, 189, 248, 0.05);
 }
 
 /* Footer */

@@ -44,11 +44,15 @@
             </nav>
 
             <div class="user-profile">
-                <div class="avatar">JD</div>
+                <div class="avatar" id="nav-avatar">JD</div>
                 <div class="user-info">
-                    <span class="user-name">Jane Doe</span>
-                    <span class="user-status">Premium Tier</span>
+                    <span class="user-name" id="nav-user-name">Jane Doe</span>
+                    <span class="user-status" id="nav-user-status">Premium Tier</span>
                 </div>
+                <button class="btn btn-outline btn-sm logout-btn" id="logout-btn" title="Log Out">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    Log Out
+                </button>
             </div>
         </div>
     </header>
@@ -69,25 +73,25 @@
                         <span>Total Portfolio Balance</span>
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
                     </div>
-                    <div class="card-value">$128,450.80</div>
+                    <div class="card-value" id="portfolio-balance">$128,450.80</div>
                     <div class="card-footer positive">+4.2% from last month</div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
                         <span>Checking Account</span>
-                        <span class="account-num">•••• 4829</span>
+                        <span class="account-num" id="checking-account-num">•••• 4829</span>
                     </div>
-                    <div class="card-value">$24,150.25</div>
+                    <div class="card-value" id="checking-balance">$24,150.25</div>
                     <div class="card-footer text-muted">Greg's Main Service</div>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
                         <span>Savings Account</span>
-                        <span class="account-num">•••• 9102</span>
+                        <span class="account-num" id="savings-account-num">•••• 9102</span>
                     </div>
-                    <div class="card-value">$104,300.55</div>
+                    <div class="card-value" id="savings-balance">$104,300.55</div>
                     <div class="card-footer text-muted">Greg's Backend Service</div>
                 </div>
             </div>
@@ -313,6 +317,51 @@
             <p class="footer-note">Flowise Chatbot embedded via AI Guardrails API Host</p>
         </div>
     </footer>
+
+    <!-- Login Modal Screen -->
+    <div id="login-modal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+                <h2>Sign in to <span class="brand-highlight">Greg's Finance</span></h2>
+                <p class="text-muted">Enter your credentials to access your banking dashboard</p>
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" class="form-input" placeholder="jane.doe@gregsfinance.com" required value="jane.doe@gregsfinance.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="••••••••" required value="password123">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            </form>
+
+            <div id="login-error" class="alert error hidden">Invalid email or password. Please check demo accounts below.</div>
+
+            <div class="quick-login-box">
+                <p class="quick-login-title">Demo User Accounts (Click to autofill):</p>
+                <div class="quick-chips">
+                    <button type="button" class="chip" data-email="jane.doe@gregsfinance.com" data-pass="password123">
+                        <strong>Jane Doe</strong> (Premium)
+                    </button>
+                    <button type="button" class="chip" data-email="alex.smith@gregsfinance.com" data-pass="admin123">
+                        <strong>Alex Smith</strong> (Standard)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- App JavaScript -->
     <script src="app.js"></script>
