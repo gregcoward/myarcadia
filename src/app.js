@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Demo User Database
     const USERS_DB = {
-        'jane.doe@gregsfinance.com': {
-            email: 'jane.doe@gregsfinance.com',
+        'jane.doe@redseabank.com': {
+            email: 'jane.doe@redseabank.com',
             password: 'password123',
             name: 'Jane Doe',
             avatar: 'JD',
@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
             savingsBalance: 104300.55,
             referralCode: 'JD-8902'
         },
-        'alex.smith@gregsfinance.com': {
-            email: 'alex.smith@gregsfinance.com',
+        'alex.smith@redseabank.com': {
+            email: 'alex.smith@redseabank.com',
             password: 'admin123',
             name: 'Alex Smith',
             avatar: 'AS',
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Auth State Initialization
     function checkAuth() {
-        const sessionUserEmail = sessionStorage.getItem('gregs_auth_user');
+        const sessionUserEmail = sessionStorage.getItem('redsea_auth_user');
         if (sessionUserEmail && USERS_DB[sessionUserEmail]) {
             renderUserSession(USERS_DB[sessionUserEmail]);
             loginModal.classList.add('hidden');
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (savingsNumEl) savingsNumEl.textContent = user.savingsNum;
 
         if (referralLinkInput) {
-            referralLinkInput.value = `https://gregs-finance.apps.openshift.com/invite/${user.referralCode}`;
+            referralLinkInput.value = `https://redseabank.apps.openshift.com/invite/${user.referralCode}`;
         }
 
         if (sourceAccountSelect) {
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const matchedUser = USERS_DB[email];
             if (matchedUser && matchedUser.password === password) {
-                sessionStorage.setItem('gregs_auth_user', matchedUser.email);
+                sessionStorage.setItem('redsea_auth_user', matchedUser.email);
                 loginError.classList.add('hidden');
                 renderUserSession(matchedUser);
                 loginModal.classList.add('hidden');
@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Logout
     if (logoutBtn) {
         logoutBtn.addEventListener('click', () => {
-            sessionStorage.removeItem('gregs_auth_user');
+            sessionStorage.removeItem('redsea_auth_user');
             loginModal.classList.remove('hidden');
         });
     }

@@ -8,11 +8,70 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-NAMESPACE=${1:-"gregs-finance"}
-METHOD=${2:-"external"}
-REGISTRY=${3:-"docker.io/gregcoward/myarcadia:latest"}
+# Default Configuration
+NAMESPACE="${NAMESPACE:-"redsea-bank"}"
+METHOD="external"
+REGISTRY="docker.io/gregcoward/myarcadia:latest"
 
-echo -e "${BLUE}=== Greg's Finance Company - OpenShift Deployment Helper ===${NC}"
+# Print Usage Help
+function show_help() {
+    echo -e "${BLUE}=== RedSea Bank - OpenShift Deployment Helper ===${NC}"
+    echo "Usage: ./deploy.sh [OPTIONS] [NAMESPACE] [METHOD] [REGISTRY]"
+    echo ""
+    echo "Options:"
+    echo "  -n, --namespace <NAME>   Specify OpenShift project / namespace (default: redsea-bank)"
+    echo "  -m, --method <METHOD>    Deployment method: 'external' (Docker Hub) or 'openshift-build' (in-cluster)"
+    echo "  -r, --registry <IMAGE>   Target container image tag (default: docker.io/gregcoward/myarcadia:latest)"
+    echo "  -h, --help               Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  ./deploy.sh -n redsea-bank"
+    echo "  ./deploy.sh --namespace production-bank --method external"
+    echo "  ./deploy.sh my-custom-ns openshift-build"
+    exit 0
+}
+
+# Parse named flags or positional arguments
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -n|--namespace)
+            NAMESPACE="$2"
+            shift 2
+            ;;
+        -m|--method)
+            METHOD="$2"
+            shift 2
+            ;;
+        -r|--registry)
+            REGISTRY="$2"
+            shift 2
+            ;;
+        -h|--help)
+            show_help
+            ;;
+        *)
+            POSITIONAL+=("$1")
+            shift
+            ;;
+    esac
+done
+
+# Restore positional parameters
+set -- "${POSITIONAL[@]}"
+
+# Override with positional arguments if provided
+if [ -n "$1" ]; then
+    NAMESPACE="$1"
+fi
+if [ -n "$2" ]; then
+    METHOD="$2"
+fi
+if [ -n "$3" ]; then
+    REGISTRY="$3"
+fi
+
+echo -e "${BLUE}=== RedSea Bank - OpenShift Deployment Helper ===${NC}"
 echo -e "Namespace/Project: ${YELLOW}${NAMESPACE}${NC}"
 echo -e "Deployment Method: ${YELLOW}${METHOD}${NC}"
 echo -e "Target Registry:   ${YELLOW}${REGISTRY}${NC}\n"
@@ -49,19 +108,19 @@ if [ "${METHOD}" == "external" ] || [ "${METHOD}" == "docker" ]; then
     fi
 
     echo -e "\n${BLUE}3. Applying OpenShift Deployment, Service, and Route manifests...${NC}"
-    oc apply -f openshift/deployment.yaml
-    oc apply -f openshift/service.yaml
-    oc apply -f openshift/route.yaml
+    oc apply -n "${NAMESPACE}" -f openshift/deployment.yaml
+    oc apply -n "${NAMESPACE}" -f openshift/service.yaml
+    oc apply -n "${NAMESPACE}" -f openshift/route.yaml
 
     echo -e "${BLUE}4. Updating Deployment container image to ${REGISTRY}...${NC}"
-    oc set image deployment/arcadia-web arcadia-web="${REGISTRY}"
+    oc set image deployment/arcadia-web arcadia-web="${REGISTRY}" -n "${NAMESPACE}"
 
 elif [ "${METHOD}" == "openshift-build" ]; then
     echo -e "\n${BLUE}1. Applying OpenShift ImageStream & BuildConfig...${NC}"
-    oc apply -f openshift/buildconfig.yaml
+    oc apply -n "${NAMESPACE}" -f openshift/buildconfig.yaml
 
     echo -e "\n${BLUE}2. Starting binary build directly inside OpenShift...${NC}"
-    if ! oc start-build arcadia-web --from-dir=. --follow; then
+    if ! oc start-build arcadia-web -n "${NAMESPACE}" --from-dir=. --follow; then
         echo -e "\n${YELLOW}========================================================================${NC}"
         echo -e "${YELLOW}Notice: OpenShift in-cluster build failed (likely because internal image registry is disabled on this cluster).${NC}"
         echo -e "${YELLOW}Switching automatically to Docker Hub build for linux/amd64 (${REGISTRY})...${NC}"
@@ -74,33 +133,33 @@ elif [ "${METHOD}" == "openshift-build" ]; then
         docker push "${REGISTRY}" || podman push "${REGISTRY}"
 
         echo -e "${BLUE}Applying OpenShift Manifests...${NC}"
-        oc apply -f openshift/deployment.yaml
-        oc apply -f openshift/service.yaml
-        oc apply -f openshift/route.yaml
+        oc apply -n "${NAMESPACE}" -f openshift/deployment.yaml
+        oc apply -n "${NAMESPACE}" -f openshift/service.yaml
+        oc apply -n "${NAMESPACE}" -f openshift/route.yaml
 
-        oc set image deployment/arcadia-web arcadia-web="${REGISTRY}"
+        oc set image deployment/arcadia-web arcadia-web="${REGISTRY}" -n "${NAMESPACE}"
     else
         echo -e "\n${BLUE}3. Applying Deployment, Service, and Route...${NC}"
-        oc apply -f openshift/deployment.yaml
-        oc apply -f openshift/service.yaml
-        oc apply -f openshift/route.yaml
+        oc apply -n "${NAMESPACE}" -f openshift/deployment.yaml
+        oc apply -n "${NAMESPACE}" -f openshift/service.yaml
+        oc apply -n "${NAMESPACE}" -f openshift/route.yaml
 
-        IMAGE_STREAM_URL=$(oc get is arcadia-web -o jsonpath='{.status.dockerImageRepository}' 2>/dev/null || echo "")
+        IMAGE_STREAM_URL=$(oc get is arcadia-web -n "${NAMESPACE}" -o jsonpath='{.status.dockerImageRepository}' 2>/dev/null || echo "")
         if [ -n "${IMAGE_STREAM_URL}" ]; then
             echo -e "${BLUE}Updating Deployment container image to ${IMAGE_STREAM_URL}:latest...${NC}"
-            oc set image deployment/arcadia-web arcadia-web="${IMAGE_STREAM_URL}:latest"
+            oc set image deployment/arcadia-web arcadia-web="${IMAGE_STREAM_URL}:latest" -n "${NAMESPACE}"
         fi
     fi
 fi
 
-echo -e "\n${GREEN}=== Deployment Triggered Successfully! ===${NC}"
+echo -e "\n${GREEN}=== Deployment Triggered Successfully in Namespace '${NAMESPACE}'! ===${NC}"
 echo -e "Waiting for rollout to complete..."
-oc rollout status deployment/arcadia-web --timeout=120s || true
+oc rollout status deployment/arcadia-web -n "${NAMESPACE}" --timeout=120s || true
 
 echo -e "\n${GREEN}=== OpenShift Route URL ===${NC}"
-ROUTE_URL=$(oc get route arcadia-web -o jsonpath='{.spec.host}' 2>/dev/null || echo "")
+ROUTE_URL=$(oc get route arcadia-web -n "${NAMESPACE}" -o jsonpath='{.spec.host}' 2>/dev/null || echo "")
 if [ -n "${ROUTE_URL}" ]; then
     echo -e "Application is live at: ${YELLOW}https://${ROUTE_URL}${NC}"
 else
-    echo -e "Run ${YELLOW}oc get route arcadia-web${NC} to get your live URL."
+    echo -e "Run ${YELLOW}oc get route arcadia-web -n ${NAMESPACE}${NC} to get your live URL."
 fi
