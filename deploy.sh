@@ -9,23 +9,23 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 # Default Configuration
-NAMESPACE="${NAMESPACE:-"redsea-bank"}"
+NAMESPACE="${NAMESPACE:-"redsealab-bank"}"
 METHOD="external"
 REGISTRY="docker.io/gregcoward/myarcadia:latest"
 
 # Print Usage Help
 function show_help() {
-    echo -e "${BLUE}=== RedSea Bank - OpenShift Deployment Helper ===${NC}"
+    echo -e "${BLUE}=== Red Sea Lab Bank - OpenShift Deployment Helper ===${NC}"
     echo "Usage: ./deploy.sh [OPTIONS] [NAMESPACE] [METHOD] [REGISTRY]"
     echo ""
     echo "Options:"
-    echo "  -n, --namespace <NAME>   Specify OpenShift project / namespace (default: redsea-bank)"
+    echo "  -n, --namespace <NAME>   Specify OpenShift project / namespace (default: redsealab-bank)"
     echo "  -m, --method <METHOD>    Deployment method: 'external' (Docker Hub) or 'openshift-build' (in-cluster)"
     echo "  -r, --registry <IMAGE>   Target container image tag (default: docker.io/gregcoward/myarcadia:latest)"
     echo "  -h, --help               Show this help message"
     echo ""
     echo "Examples:"
-    echo "  ./deploy.sh -n redsea-bank"
+    echo "  ./deploy.sh -n redsealab-bank"
     echo "  ./deploy.sh --namespace production-bank --method external"
     echo "  ./deploy.sh my-custom-ns openshift-build"
     exit 0
@@ -71,7 +71,7 @@ if [ -n "$3" ]; then
     REGISTRY="$3"
 fi
 
-echo -e "${BLUE}=== RedSea Bank - OpenShift Deployment Helper ===${NC}"
+echo -e "${BLUE}=== Red Sea Lab Bank - OpenShift Deployment Helper ===${NC}"
 echo -e "Namespace/Project: ${YELLOW}${NAMESPACE}${NC}"
 echo -e "Deployment Method: ${YELLOW}${METHOD}${NC}"
 echo -e "Target Registry:   ${YELLOW}${REGISTRY}${NC}\n"

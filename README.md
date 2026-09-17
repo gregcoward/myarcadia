@@ -1,6 +1,6 @@
-# RedSea Bank Web Application
+# Red Sea Lab Bank Web Application
 
-A full-stack sample web application for **RedSea Bank** (inspired by the F5 Arcadia microservices architecture pattern). Embedded with a **Flowise AI Chatbot** widget and built for non-root execution on **Red Hat OpenShift** and **Kubernetes**.
+A full-stack sample web application for **Red Sea Lab Bank** (inspired by the F5 Arcadia microservices architecture pattern). Embedded with a **Flowise AI Chatbot** widget and built for non-root execution on **Red Hat OpenShift** and **Kubernetes**.
 
 GitHub Repository: [https://github.com/gregcoward/myarcadia](https://github.com/gregcoward/myarcadia)
 
@@ -29,7 +29,7 @@ GitHub Repository: [https://github.com/gregcoward/myarcadia](https://github.com/
 ## Overview & Features
 
 - **User Authentication Screen**: Full-screen modal login interface with session persistence (`sessionStorage`), error handling, and pre-configured demo account quick-fill chips.
-- **Frontend Portal**: Banking dashboard for RedSea Bank featuring portfolio balances, checking & savings accounts, recent transactions log, money transfer interface, refer-a-friend card, and microservice health status monitor.
+- **Frontend Portal**: Banking dashboard for Red Sea Lab Bank featuring portfolio balances, checking & savings accounts, recent transactions log, money transfer interface, refer-a-friend card, and microservice health status monitor.
 - **Embedded AI Chatbot**: Integrated Flowise Chatbot widget connecting to the Flowise AI Guardrails backend via a JS module script.
 - **OpenShift Non-Root Security**: Uses `nginxinc/nginx-unprivileged:alpine` listening on non-privileged TCP port `8080`, fully compliant with OpenShift's restricted `SecurityContextConstraints` (SCC).
 - **Multi-Cloud Ready**: Complete manifests for both OpenShift (`Route`, `BuildConfig`, `ImageStream`) and standard Kubernetes (`Deployment`, `Service`, `Ingress`).
@@ -42,8 +42,8 @@ The application includes an authentication screen that prompts for user login up
 
 | Account Name | Role / Tier | Email Address | Password |
 | :--- | :--- | :--- | :--- |
-| **Jane Doe** | Premium Tier | `jane.doe@redseabank.com` | `password123` |
-| **Alex Smith** | Standard Tier | `alex.smith@redseabank.com` | `admin123` |
+| **Jane Doe** | Premium Tier | `jane.doe@redsealabbank.com` | `password123` |
+| **Alex Smith** | Standard Tier | `alex.smith@redsealabbank.com` | `admin123` |
 
 ### Auth Session & Logout
 - **Session Persistence**: Logging in saves the active session state in `sessionStorage`. Reloading or navigating tabs preserves the logged-in session.
@@ -67,11 +67,11 @@ The application includes an authentication screen that prompts for user login up
 - Click **Send Transfer**. The transfer payload is sent to the `/api/v1/transfer` endpoint, displays a success notification banner, and dynamically prepends the new transaction to the **Recent Transactions** table on the Dashboard.
 
 ### 4. Refer-a-Friend Tab
-- Copy your user-specific referral URL (`https://redseabank.apps.openshift.com/invite/<USER_CODE>`) to the clipboard with one click.
+- Copy your user-specific referral URL (`https://redsealabbank.apps.openshift.com/invite/<USER_CODE>`) to the clipboard with one click.
 - Enter a friend's email address and click **Send Invitation**. Dispatches an invitation request to `/app3/referral`.
 
 ### 5. Microservices Status Tab
-- Displays real-time operational status for RedSea Bank microservices:
+- Displays real-time operational status for Red Sea Lab Bank microservices:
   - **Main Web Frontend** (`/`)
   - **Backend Service** (`/files`)
   - **Money Transfer API** (`/api`)
@@ -123,8 +123,8 @@ User accounts and credentials are defined in the `USERS_DB` object inside [`src/
 
 ```javascript
 const USERS_DB = {
-    'jane.doe@redseabank.com': {
-        email: 'jane.doe@redseabank.com',
+    'jane.doe@redsealabbank.com': {
+        email: 'jane.doe@redsealabbank.com',
         password: 'password123',
         name: 'Jane Doe',
         avatar: 'JD',
@@ -150,7 +150,7 @@ const USERS_DB = {
 docker build --platform linux/amd64 -t gregcoward/myarcadia:latest .
 
 # Test run locally on port 8080
-docker run -d -p 8080:8080 --name redsea-bank-app gregcoward/myarcadia:latest
+docker run -d -p 8080:8080 --name redsealab-bank-app gregcoward/myarcadia:latest
 
 # Verify local health endpoint
 curl http://localhost:8080/healthz
@@ -169,14 +169,14 @@ The deployment script [`deploy.sh`](deploy.sh) allows you to specify any target 
 ### Specifying Target Namespace
 
 ```bash
-# Option 1: Using the -n or --namespace flag (Default: redsea-bank)
-./deploy.sh -n my-custom-namespace
+# Option 1: Using the -n or --namespace flag (Default: redsealab-bank)
+./deploy.sh -n redsealab-bank
 
 # Option 2: Using positional arguments [NAMESPACE] [METHOD] [REGISTRY]
-./deploy.sh redsea-bank external docker.io/gregcoward/myarcadia:latest
+./deploy.sh redsealab-bank external docker.io/gregcoward/myarcadia:latest
 
 # Option 3: Setting the NAMESPACE environment variable
-NAMESPACE="prod-redsea-bank" ./deploy.sh
+NAMESPACE="prod-redsealab-bank" ./deploy.sh
 ```
 
 ### OpenShift Deployment Options
@@ -185,14 +185,14 @@ NAMESPACE="prod-redsea-bank" ./deploy.sh
 Builds the container image locally targeting `linux/amd64`, pushes to Docker Hub, and deploys to the specified namespace:
 
 ```bash
-./deploy.sh -n redsea-bank -m external
+./deploy.sh -n redsealab-bank -m external
 ```
 
 #### Option B: In-Cluster OpenShift Build
 Uses OpenShift ImageStream & BuildConfig resources:
 
 ```bash
-./deploy.sh -n redsea-bank -m openshift-build
+./deploy.sh -n redsealab-bank -m openshift-build
 ```
 
 ---
@@ -204,7 +204,7 @@ Uses OpenShift ImageStream & BuildConfig resources:
 | [`Dockerfile`](Dockerfile) | Multi-stage unprivileged NGINX build file (port 8080). |
 | [`nginx.conf`](nginx.conf) | Unprivileged web server configuration with security headers & `/healthz` probe. |
 | [`deploy.sh`](deploy.sh) | Automated OpenShift deployment helper script supporting explicit namespace options. |
-| [`src/index.html`](src/index.html) | Main HTML document for RedSea Bank with Login Modal & Flowise Chatbot embed code. |
+| [`src/index.html`](src/index.html) | Main HTML document for Red Sea Lab Bank with Login Modal & Flowise Chatbot embed code. |
 | [`src/styles.css`](src/styles.css) | Custom CSS styling & modal screen styles. |
 | [`src/app.js`](src/app.js) | Authentication state manager, tab switcher & mock API handlers. |
 | [`openshift/deployment.yaml`](openshift/deployment.yaml) | Kubernetes Deployment with readiness/liveness probes & non-root SCC. |
@@ -219,7 +219,7 @@ Uses OpenShift ImageStream & BuildConfig resources:
 To push updates to GitHub:
 ```bash
 git add .
-git commit -m "Update app name to RedSea Bank and add namespace deployment options"
+git commit -m "Update application name to Red Sea Lab Bank"
 git push origin main
 ```
 Repository URL: [https://github.com/gregcoward/myarcadia](https://github.com/gregcoward/myarcadia)
