@@ -1,0 +1,38 @@
+================================================================================
+RED SEA LAB BANK - KNOWLEDGE BASE: REFERRAL PROGRAM & PROMOTIONS
+================================================================================
+
+DOCUMENT OVERVIEW:
+This document outlines the rules, incentives, eligibility, and API integration details for Red Sea Lab Bank's Refer-a-Friend reward program.
+
+--------------------------------------------------------------------------------
+1. REFER-A-FRIEND PROGRAM OVERVIEW
+--------------------------------------------------------------------------------
+
+1.1 Program Incentive
+- Referrer Reward: $50 cash bonus deposited directly into checking account per qualified referral.
+- Referee (Friend) Reward: $50 welcome bonus upon opening a new account and making an initial deposit of $100+.
+- Annual Maximum Bonus: Up to $500 per customer per calendar year (10 successful referrals).
+
+1.2 How It Works
+1. Log in to the Red Sea Lab Bank Portal and navigate to the "Refer a Friend" tab.
+2. Copy your unique referral URL or enter your friend's email address in the invitation form.
+3. Your friend receives an invitation link formatted as:
+   https://redsealabbank.apps.openshift.com/invite/<YOUR_REFERRAL_CODE>
+4. Once your friend opens an account and deposits $100 within 30 days, both $50 bonuses are automatically paid out.
+
+--------------------------------------------------------------------------------
+2. REFERRAL MICROSERVICE API ARCHITECTURE
+--------------------------------------------------------------------------------
+- Microservice Endpoint: /app3/referral
+- Function: Generates referral tokens, tracks invitation dispatch, validates referee account activation, and issues automated bonus payouts.
+- Demo Referral Links:
+  * Jane Doe (Premium Tier): https://redsealabbank.apps.openshift.com/invite/JD-8902
+  * Alex Smith (Standard Tier): https://redsealabbank.apps.openshift.com/invite/AS-1094
+
+--------------------------------------------------------------------------------
+3. ELIGIBILITY & TERMS
+--------------------------------------------------------------------------------
+- Referrer must maintain an active Red Sea Lab Bank account in good standing.
+- Referred friends must be new customers to Red Sea Lab Bank (no existing accounts within the past 12 months).
+- Bonus payments are processed within 2 business days following qualification.

@@ -1,0 +1,204 @@
+================================================================================
+RED SEA LAB BANK - KNOWLEDGE BASE: ACCOUNTS, PRODUCTS & RATES
+================================================================================
+
+DOCUMENT OVERVIEW:
+This document contains official policy, rates, product details, and tier structures for Red Sea Lab Bank personal and business accounts. Used for AI Chatbot retrieval and customer assistance.
+
+--------------------------------------------------------------------------------
+1. ACCOUNT TIERS & ELIGIBILITY
+--------------------------------------------------------------------------------
+
+1.1 Premium Tier Account
+- Minimum Qualifying Balance: $25,000 across checking and savings accounts.
+- APY (Annual Percentage Yield): 4.25% APY on Savings, 1.50% APY on Checking.
+- Monthly Maintenance Fee: $0 (Waived for balances over $25,000).
+- Benefits:
+  * Free domestic and international wire transfers.
+  * Dedicated 24/7 priority concierge support via chat and phone.
+  * Fee-free worldwide ATM withdrawals with unlimited fee reimbursement.
+  * Higher daily transfer and ATM withdrawal limits ($10,000 daily transfer limit).
+- Demo Account Credentials:
+  * Email: jane.doe@redsealabbank.com
+  * Account Number: Checking (•••• 4829), Savings (•••• 9102)
+
+1.2 Standard Tier Account
+- Minimum Qualifying Balance: $0 minimum opening deposit.
+- APY: 2.10% APY on Savings, 0.25% APY on Checking.
+- Monthly Maintenance Fee: $0 with direct deposit or $5/month without direct deposit.
+- Benefits:
+  * Free online banking, mobile deposit, and bill pay.
+  * Access to over 40,000 fee-free network ATMs nationwide.
+  * Standard wire transfer fees ($15 domestic, $30 international).
+- Demo Account Credentials:
+  * Email: alex.smith@redsealabbank.com
+  * Account Number: Checking (•••• 1094), Savings (•••• 7712)
+
+--------------------------------------------------------------------------------
+2. CHECKING AND SAVINGS ACCOUNT DETAILS
+--------------------------------------------------------------------------------
+
+2.1 Red Sea Lab Checking Account
+- Purpose: Everyday transactions, bill payments, and debit card purchases.
+- Debit Card: Contactless Visa Debit Card with zero fraud liability.
+- Daily Debit Card Purchase Limit: $5,000 (Standard) / $15,000 (Premium).
+- Daily ATM Withdrawal Limit: $1,000 (Standard) / $3,000 (Premium).
+
+2.2 Red Sea Lab High-Yield Savings Account
+- Purpose: Long-term wealth accumulation and interest accumulation.
+- Compounding Frequency: Interest compounded daily, credited monthly on the 1st.
+- Transfer Limits: Regulation D federal transfer limit waived; unlimited internal transfers between checking and savings.
+
+--------------------------------------------------------------------------------
+3. FEES & SCHEDULE OF CHARGES
+--------------------------------------------------------------------------------
+- Monthly Service Fee: $0 for Premium Tier; $0 for Standard Tier with $500+ monthly direct deposit.
+- Overdraft Fee: $0 with free Overdraft Protection linked to Savings Account.
+- Stop Payment Request: $15 per request.
+- Paper Statement Fee: $2/month (eStatements are 100% free).
+- Replacement Debit Card: $0 standard shipping (3-5 days); $15 rush overnight shipping.
+================================================================================
+RED SEA LAB BANK - KNOWLEDGE BASE: TRANSFERS & DIGITAL BANKING
+================================================================================
+
+DOCUMENT OVERVIEW:
+This document details money transfer protocols, digital banking features, mobile app capabilities, security standards, and API routing specs for Red Sea Lab Bank.
+
+--------------------------------------------------------------------------------
+1. MONEY TRANSFER SERVICES & LIMITS
+--------------------------------------------------------------------------------
+
+1.1 Internal Transfers & Microservice API
+- Endpoint: /api/v1/transfer
+- Description: Instant transfers between Red Sea Lab Bank accounts or to other registered Red Sea Lab Bank members.
+- Execution Time: Instant (Real-time 24/7/365).
+- Fees: $0 for all accounts.
+
+1.2 Wire Transfers (Domestic & International)
+- Domestic Wires: Processed same-day if submitted before 4:00 PM EST.
+  * Fee: $0 for Premium Tier / $15 for Standard Tier.
+- International Wires: Processed within 1 to 2 business days via SWIFT network.
+  * Fee: $0 for Premium Tier / $30 for Standard Tier.
+- Cutoff Time: 4:00 PM EST Monday through Friday (excluding federal holidays).
+
+1.3 ACH Direct Transfers
+- External Bank Transfers: 1 to 2 business days standard processing.
+- Daily Limits: $10,000 per day for Standard Tier / $50,000 per day for Premium Tier.
+
+--------------------------------------------------------------------------------
+2. DIGITAL BANKING & MOBILE APP FEATURES
+--------------------------------------------------------------------------------
+
+2.1 Web Portal & Mobile Access
+- Banking Dashboard: Real-time portfolio tracking, balance overview, transaction history export (CSV/PDF).
+- Direct Deposit: Instant payroll access up to 2 days early with qualified direct deposit.
+- Mobile Check Deposit: Snap pictures of paper checks for instant deposit credit up to $5,000 daily.
+
+2.2 Flowise AI Banking Assistant Integration
+- Embedded Chatbot Widget: Powered by Flowise AI and Qdrant vector database.
+- Capabilities: Answers banking inquiries, checks transfer rules, explains account tiers, assists with referral programs, and guides users through digital services.
+- Endpoint Host: https://flowise-local-ai-lab.apps.ai-guardrails.bd.f5.com
+- Security: Privacy-first guardrails ensure user credentials and sensitive PII are never logged or stored by external AI models.
+
+--------------------------------------------------------------------------------
+3. SECURITY, AUTHENTICATION & MULTI-FACTOR AUTH (MFA)
+--------------------------------------------------------------------------------
+- Encryption: 256-bit AES encryption at rest and TLS 1.3 in transit.
+- Session Protection: Authenticated sessions use secure client-side sessionStorage and automated timeout after 15 minutes of inactivity.
+- OpenShift Non-Root Security: Hosted on Red Hat OpenShift using unprivileged containers (port 8080) for maximum security isolation.
+================================================================================
+RED SEA LAB BANK - KNOWLEDGE BASE: REFERRAL PROGRAM & PROMOTIONS
+================================================================================
+
+DOCUMENT OVERVIEW:
+This document outlines the rules, incentives, eligibility, and API integration details for Red Sea Lab Bank's Refer-a-Friend reward program.
+
+--------------------------------------------------------------------------------
+1. REFER-A-FRIEND PROGRAM OVERVIEW
+--------------------------------------------------------------------------------
+
+1.1 Program Incentive
+- Referrer Reward: $50 cash bonus deposited directly into checking account per qualified referral.
+- Referee (Friend) Reward: $50 welcome bonus upon opening a new account and making an initial deposit of $100+.
+- Annual Maximum Bonus: Up to $500 per customer per calendar year (10 successful referrals).
+
+1.2 How It Works
+1. Log in to the Red Sea Lab Bank Portal and navigate to the "Refer a Friend" tab.
+2. Copy your unique referral URL or enter your friend's email address in the invitation form.
+3. Your friend receives an invitation link formatted as:
+   https://redsealabbank.apps.openshift.com/invite/<YOUR_REFERRAL_CODE>
+4. Once your friend opens an account and deposits $100 within 30 days, both $50 bonuses are automatically paid out.
+
+--------------------------------------------------------------------------------
+2. REFERRAL MICROSERVICE API ARCHITECTURE
+--------------------------------------------------------------------------------
+- Microservice Endpoint: /app3/referral
+- Function: Generates referral tokens, tracks invitation dispatch, validates referee account activation, and issues automated bonus payouts.
+- Demo Referral Links:
+  * Jane Doe (Premium Tier): https://redsealabbank.apps.openshift.com/invite/JD-8902
+  * Alex Smith (Standard Tier): https://redsealabbank.apps.openshift.com/invite/AS-1094
+
+--------------------------------------------------------------------------------
+3. ELIGIBILITY & TERMS
+--------------------------------------------------------------------------------
+- Referrer must maintain an active Red Sea Lab Bank account in good standing.
+- Referred friends must be new customers to Red Sea Lab Bank (no existing accounts within the past 12 months).
+- Bonus payments are processed within 2 business days following qualification.
+================================================================================
+RED SEA LAB BANK - KNOWLEDGE BASE: TECHNICAL ARCHITECTURE & FAQS
+================================================================================
+
+DOCUMENT OVERVIEW:
+This document contains system architecture specifications, microservices routing details, OpenShift deployment parameters, and a comprehensive FAQ knowledge base for AI vector retrieval.
+
+--------------------------------------------------------------------------------
+1. MICROSERVICES ARCHITECTURE & ENDPOINTS
+--------------------------------------------------------------------------------
+
+1.1 Microservices Mapping
+- Main Web Frontend (Path: /)
+  * Container Image: docker.io/gregcoward/myarcadia:latest
+  * Technology: Unprivileged NGINX (Alpine base), HTML5, CSS3, ES6 JavaScript.
+  * Role: Serves banking dashboard UI, authentication modal, and Flowise Chatbot snippet.
+
+- Backend Service (Path: /files)
+  * Role: Manages customer database records, transaction ledgers, and statement file downloads.
+
+- Money Transfer API (Path: /api)
+  * Role: Handles wire transfers, account balance queries, and instant funds transfers.
+
+- Referral Microservice (Path: /app3)
+  * Role: Manages invite links, referral code generation, and reward tracking.
+
+1.2 OpenShift & Container Security Specifications
+- Base Image: nginxinc/nginx-unprivileged:alpine
+- Container Port: 8080 (Non-root, unprivileged port)
+- Target CPU / Memory Architecture: linux/amd64
+- Security Context Constraints (SCC): Restricted / Restricted-v2 compliant.
+- Health Probes:
+  * Liveness Probe: HTTP GET /healthz on port 8080 (initialDelay: 5s, period: 10s)
+  * Readiness Probe: HTTP GET /healthz on port 8080 (initialDelay: 2s, period: 5s)
+
+--------------------------------------------------------------------------------
+2. FREQUENTLY ASKED QUESTIONS (FAQS) FOR AI CHATBOT
+--------------------------------------------------------------------------------
+
+Q: What is Red Sea Lab Bank?
+A: Red Sea Lab Bank is a modern digital banking platform inspired by the F5 Arcadia microservices architecture. It provides high-yield savings, checking accounts, instant transfers, referral rewards, and AI-assisted banking services deployed on Red Hat OpenShift.
+
+Q: How do I log in to the Red Sea Lab Bank portal?
+A: Click the "Sign In" button or use the login modal on the home page. Demo credentials available:
+   - Jane Doe (Premium Tier): jane.doe@redsealabbank.com / password123
+   - Alex Smith (Standard Tier): alex.smith@redsealabbank.com / admin123
+
+Q: What interest rate does Red Sea Lab Bank offer on savings?
+A: Premium Tier accounts earn 4.25% APY on savings, while Standard Tier accounts earn 2.10% APY on savings.
+
+Q: How does the Refer-a-Friend program work?
+A: Share your unique referral link (found under the "Refer a Friend" tab). When a friend opens an account and deposits $100, both you and your friend receive a $50 cash bonus.
+
+Q: Is Red Sea Lab Bank secure on OpenShift?
+A: Yes. The application runs in unprivileged non-root containers on port 8080 under OpenShift restricted SCC policies, protected by 256-bit AES encryption and AI Guardrails for user data protection.
+
+Q: How fast are internal transfers processed?
+A: Internal transfers executed via the /api/v1/transfer service are processed instantly 24/7/365 with zero transaction fees.

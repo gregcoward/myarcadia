@@ -1,0 +1,58 @@
+================================================================================
+RED SEA LAB BANK - KNOWLEDGE BASE: TECHNICAL ARCHITECTURE & FAQS
+================================================================================
+
+DOCUMENT OVERVIEW:
+This document contains system architecture specifications, microservices routing details, OpenShift deployment parameters, and a comprehensive FAQ knowledge base for AI vector retrieval.
+
+--------------------------------------------------------------------------------
+1. MICROSERVICES ARCHITECTURE & ENDPOINTS
+--------------------------------------------------------------------------------
+
+1.1 Microservices Mapping
+- Main Web Frontend (Path: /)
+  * Container Image: docker.io/gregcoward/myarcadia:latest
+  * Technology: Unprivileged NGINX (Alpine base), HTML5, CSS3, ES6 JavaScript.
+  * Role: Serves banking dashboard UI, authentication modal, and Flowise Chatbot snippet.
+
+- Backend Service (Path: /files)
+  * Role: Manages customer database records, transaction ledgers, and statement file downloads.
+
+- Money Transfer API (Path: /api)
+  * Role: Handles wire transfers, account balance queries, and instant funds transfers.
+
+- Referral Microservice (Path: /app3)
+  * Role: Manages invite links, referral code generation, and reward tracking.
+
+1.2 OpenShift & Container Security Specifications
+- Base Image: nginxinc/nginx-unprivileged:alpine
+- Container Port: 8080 (Non-root, unprivileged port)
+- Target CPU / Memory Architecture: linux/amd64
+- Security Context Constraints (SCC): Restricted / Restricted-v2 compliant.
+- Health Probes:
+  * Liveness Probe: HTTP GET /healthz on port 8080 (initialDelay: 5s, period: 10s)
+  * Readiness Probe: HTTP GET /healthz on port 8080 (initialDelay: 2s, period: 5s)
+
+--------------------------------------------------------------------------------
+2. FREQUENTLY ASKED QUESTIONS (FAQS) FOR AI CHATBOT
+--------------------------------------------------------------------------------
+
+Q: What is Red Sea Lab Bank?
+A: Red Sea Lab Bank is a modern digital banking platform inspired by the F5 Arcadia microservices architecture. It provides high-yield savings, checking accounts, instant transfers, referral rewards, and AI-assisted banking services deployed on Red Hat OpenShift.
+
+Q: How do I log in to the Red Sea Lab Bank portal?
+A: Click the "Sign In" button or use the login modal on the home page. Demo credentials available:
+   - Jane Doe (Premium Tier): jane.doe@redsealabbank.com / password123
+   - Alex Smith (Standard Tier): alex.smith@redsealabbank.com / admin123
+
+Q: What interest rate does Red Sea Lab Bank offer on savings?
+A: Premium Tier accounts earn 4.25% APY on savings, while Standard Tier accounts earn 2.10% APY on savings.
+
+Q: How does the Refer-a-Friend program work?
+A: Share your unique referral link (found under the "Refer a Friend" tab). When a friend opens an account and deposits $100, both you and your friend receive a $50 cash bonus.
+
+Q: Is Red Sea Lab Bank secure on OpenShift?
+A: Yes. The application runs in unprivileged non-root containers on port 8080 under OpenShift restricted SCC policies, protected by 256-bit AES encryption and AI Guardrails for user data protection.
+
+Q: How fast are internal transfers processed?
+A: Internal transfers executed via the /api/v1/transfer service are processed instantly 24/7/365 with zero transaction fees.

@@ -1,0 +1,59 @@
+================================================================================
+RED SEA LAB BANK - KNOWLEDGE BASE: ACCOUNTS, PRODUCTS & RATES
+================================================================================
+
+DOCUMENT OVERVIEW:
+This document contains official policy, rates, product details, and tier structures for Red Sea Lab Bank personal and business accounts. Used for AI Chatbot retrieval and customer assistance.
+
+--------------------------------------------------------------------------------
+1. ACCOUNT TIERS & ELIGIBILITY
+--------------------------------------------------------------------------------
+
+1.1 Premium Tier Account
+- Minimum Qualifying Balance: $25,000 across checking and savings accounts.
+- APY (Annual Percentage Yield): 4.25% APY on Savings, 1.50% APY on Checking.
+- Monthly Maintenance Fee: $0 (Waived for balances over $25,000).
+- Benefits:
+  * Free domestic and international wire transfers.
+  * Dedicated 24/7 priority concierge support via chat and phone.
+  * Fee-free worldwide ATM withdrawals with unlimited fee reimbursement.
+  * Higher daily transfer and ATM withdrawal limits ($10,000 daily transfer limit).
+- Demo Account Credentials:
+  * Email: jane.doe@redsealabbank.com
+  * Account Number: Checking (•••• 4829), Savings (•••• 9102)
+
+1.2 Standard Tier Account
+- Minimum Qualifying Balance: $0 minimum opening deposit.
+- APY: 2.10% APY on Savings, 0.25% APY on Checking.
+- Monthly Maintenance Fee: $0 with direct deposit or $5/month without direct deposit.
+- Benefits:
+  * Free online banking, mobile deposit, and bill pay.
+  * Access to over 40,000 fee-free network ATMs nationwide.
+  * Standard wire transfer fees ($15 domestic, $30 international).
+- Demo Account Credentials:
+  * Email: alex.smith@redsealabbank.com
+  * Account Number: Checking (•••• 1094), Savings (•••• 7712)
+
+--------------------------------------------------------------------------------
+2. CHECKING AND SAVINGS ACCOUNT DETAILS
+--------------------------------------------------------------------------------
+
+2.1 Red Sea Lab Checking Account
+- Purpose: Everyday transactions, bill payments, and debit card purchases.
+- Debit Card: Contactless Visa Debit Card with zero fraud liability.
+- Daily Debit Card Purchase Limit: $5,000 (Standard) / $15,000 (Premium).
+- Daily ATM Withdrawal Limit: $1,000 (Standard) / $3,000 (Premium).
+
+2.2 Red Sea Lab High-Yield Savings Account
+- Purpose: Long-term wealth accumulation and interest accumulation.
+- Compounding Frequency: Interest compounded daily, credited monthly on the 1st.
+- Transfer Limits: Regulation D federal transfer limit waived; unlimited internal transfers between checking and savings.
+
+--------------------------------------------------------------------------------
+3. FEES & SCHEDULE OF CHARGES
+--------------------------------------------------------------------------------
+- Monthly Service Fee: $0 for Premium Tier; $0 for Standard Tier with $500+ monthly direct deposit.
+- Overdraft Fee: $0 with free Overdraft Protection linked to Savings Account.
+- Stop Payment Request: $15 per request.
+- Paper Statement Fee: $2/month (eStatements are 100% free).
+- Replacement Debit Card: $0 standard shipping (3-5 days); $15 rush overnight shipping.
