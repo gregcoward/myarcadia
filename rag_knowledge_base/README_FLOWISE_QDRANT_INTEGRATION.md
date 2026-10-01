@@ -4,6 +4,27 @@ This directory contains sample RAG (Retrieval-Augmented Generation) knowledge ba
 
 ---
 
+## 📐 Qdrant Vector Dimension Reference
+
+The Qdrant collection **vector dimension size** must match the **Embedding Model** configured in Flowise:
+
+| Embedding Provider | Model Name | Qdrant Vector Dimension | Recommended Distance Metric |
+| :--- | :--- | :---: | :---: |
+| **OpenAI** (Recommended) | `text-embedding-3-small` | **1536** | Cosine |
+| **OpenAI** | `text-embedding-3-large` | **3072** | Cosine |
+| **OpenAI** (Legacy) | `text-embedding-ada-002` | **1536** | Cosine |
+| **Ollama / Local** | `nomic-embed-text` | **768** | Cosine |
+| **Ollama / Local** | `mxbai-embed-large` | **1024** | Cosine |
+| **HuggingFace / BGE** | `BAAI/bge-small-en-v1.5` | **384** | Cosine |
+| **HuggingFace / BGE** | `BAAI/bge-base-en-v1.5` | **768** | Cosine |
+| **HuggingFace / BGE** | `BAAI/bge-large-en-v1.5` | **1024** | Cosine |
+| **Google Vertex / Gemini** | `text-embedding-004` | **768** | Cosine |
+| **Cohere** | `embed-english-v3.0` | **1024** | Cosine |
+
+> **Note**: If you let Flowise auto-create the Qdrant collection during the "Upsert" step, Flowise sets the dimension automatically based on the connected Embeddings node.
+
+---
+
 ## 📁 Knowledge Base Files Overview
 
 | File Name | Content Description | Best Flowise Chunk Size |
@@ -22,7 +43,7 @@ This directory contains sample RAG (Retrieval-Augmented Generation) knowledge ba
 In your Flowise UI, build or edit your Chatflow canvas with the following nodes:
 1. **Document Loader**: Add a **Text File / File Loader** or **Folder Loader** node.
 2. **Text Splitter**: Attach a **Recursive Character Text Splitter** node (Chunk Size: `500`, Chunk Overlap: `50`).
-3. **Embeddings Model**: Attach an **OpenAI Embeddings** node (`text-embedding-3-small`) or **Ollama / HuggingFace Embeddings** node.
+3. **Embeddings Model**: Attach an **OpenAI Embeddings** node (`text-embedding-3-small` -> 1536 dim) or your chosen model.
 4. **Vector Store**: Attach a **Qdrant Vector Store** node.
    - **Qdrant Server URL**: `https://your-qdrant-instance:6333` (or local Qdrant container endpoint)
    - **Collection Name**: `redsea_lab_bank_kb`
